@@ -12,7 +12,7 @@
       height: 20px;
       margin-right: 6px;
       vertical-align: middle;
-      fill: #5A22F4; /* Use purple from your logo */
+      fill: #5A22F4; /* purple */
     }
   </style>
 </head>
@@ -38,7 +38,7 @@
       <input id="subjectTemplate" type="text" class="flex-grow p-3 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" 
         value="Hello [Business Name], check out AI Bot 24/7 for your [Category]" />
       <button id="copySubjectBtn" title="Copy Subject" class="p-3 bg-purple-600 hover:bg-purple-700 rounded text-white flex items-center gap-1">
-        <svg class="icon text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zM20 5H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h12v14z"/>
         </svg>
         Copy
@@ -81,6 +81,18 @@ Sky Dental | https://www.skydentalnyc.com/ | contactus@skydentalnyc.com | 111 Br
       Generate Email
     </button>
 
+    <!-- Output Email To -->
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-xl font-semibold text-gray-800">Email To:</h2>
+      <button id="copyEmailToBtn" title="Copy Email To" class="text-purple-600 hover:underline flex items-center gap-1">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zM20 5H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h12v14z"/>
+        </svg>
+        Copy
+      </button>
+    </div>
+    <div id="emailToOutput" class="p-4 border border-gray-300 rounded bg-gray-100 mb-8 whitespace-pre-wrap min-h-[40px]"></div>
+
     <!-- Output Subject -->
     <div class="flex items-center justify-between mb-2">
       <h2 class="text-xl font-semibold text-gray-800">Generated Subject:</h2>
@@ -107,7 +119,7 @@ Sky Dental | https://www.skydentalnyc.com/ | contactus@skydentalnyc.com | 111 Br
 
     <!-- Footer -->
     <footer class="mt-10 text-center text-gray-500 text-sm">
-      Developed for Business by <a target="_blank" href="https://alienzeus.github.io" class="text-purple-600 hover:underline">Zeus</a>
+      Developed for Business by <a href="#" class="text-purple-600 hover:underline">Zeus</a> &copy; 2025 AI Bot 24/7
     </footer>
 
   </div>
@@ -119,10 +131,12 @@ Sky Dental | https://www.skydentalnyc.com/ | contactus@skydentalnyc.com | 111 Br
     const leadData = document.getElementById('leadData');
     const generatedSubject = document.getElementById('generatedSubject');
     const generatedEmail = document.getElementById('generatedEmail');
+    const emailToOutput = document.getElementById('emailToOutput');
 
     const copySubjectBtn = document.getElementById('copySubjectBtn');
     const copyGeneratedSubjectBtn = document.getElementById('copyGeneratedSubjectBtn');
     const copyGeneratedEmailBtn = document.getElementById('copyGeneratedEmailBtn');
+    const copyEmailToBtn = document.getElementById('copyEmailToBtn');
 
     const columns = ["Business Name", "Website", "Email", "Street", "Phone", "Category", "Bot"];
 
@@ -146,9 +160,11 @@ Sky Dental | https://www.skydentalnyc.com/ | contactus@skydentalnyc.com | 111 Br
       const lead = parseLeadRow(leadData.value);
       const subject = replaceTags(subjectTemplate.value, lead);
       const email = replaceTags(emailTemplate.value, lead);
+      const emailTo = lead["Email"] || "";
 
       generatedSubject.textContent = subject;
       generatedEmail.textContent = email;
+      emailToOutput.textContent = emailTo;
     });
 
     function copyToClipboard(text) {
@@ -169,6 +185,10 @@ Sky Dental | https://www.skydentalnyc.com/ | contactus@skydentalnyc.com | 111 Br
 
     copyGeneratedEmailBtn.addEventListener('click', () => {
       copyToClipboard(generatedEmail.textContent);
+    });
+
+    copyEmailToBtn.addEventListener('click', () => {
+      copyToClipboard(emailToOutput.textContent);
     });
   </script>
 

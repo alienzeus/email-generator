@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Bot 24/7 Dynamic Email Generator</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    textarea { resize: vertical; }
+    .icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 6px;
+      vertical-align: middle;
+      fill: #5A22F4; /* Use purple from your logo */
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-8 font-sans">
+
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded shadow-lg border border-gray-200">
+    
+    <!-- Logo -->
+    <div class="flex justify-center mb-8">
+      <img src="AIBOT 247.png" alt="AI Bot 24/7 Logo" class="h-20 object-contain" />
+    </div>
+
+    <h1 class="text-3xl font-bold mb-8 text-center text-purple-700">AI Bot 24/7 Dynamic Email Generator</h1>
+
+    <!-- Subject Template -->
+    <label for="subjectTemplate" class="flex items-center mb-2 font-semibold text-gray-700">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M4 4h16v3H4zM4 8h16v2H4zM4 12h10v2H4zM4 16h7v2H4z"/>
+      </svg>
+      Subject Template
+    </label>
+    <div class="flex gap-2 mb-6">
+      <input id="subjectTemplate" type="text" class="flex-grow p-3 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+        value="Hello [Business Name], check out AI Bot 24/7 for your [Category]" />
+      <button id="copySubjectBtn" title="Copy Subject" class="p-3 bg-purple-600 hover:bg-purple-700 rounded text-white flex items-center gap-1">
+        <svg class="icon text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zM20 5H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h12v14z"/>
+        </svg>
+        Copy
+      </button>
+    </div>
+
+    <!-- Email Template -->
+    <label for="emailTemplate" class="flex items-center mb-2 font-semibold text-gray-700">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M2 4v16h20V4H2zm18 2v1.5l-8 5-8-5V6h16zM4 18V8.5l7.25 4.53a.75.75 0 0 0 .5 0L20 8.5V18H4z"/>
+      </svg>
+      Email Template
+    </label>
+    <textarea id="emailTemplate" rows="8" class="w-full p-3 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-6"
+      placeholder="Write your email template here...">Dear [Business Name],
+
+We noticed your website at [Website]. AI Bot 24/7 ([Bot]) is your digital sales assistant to help grow your [Category] business.
+
+Feel free to reach out to learn more!
+
+Best regards,
+AI Bot 24/7 Team</textarea>
+
+    <!-- Lead Data Input -->
+    <label for="leadData" class="flex items-center mb-2 font-semibold text-gray-700">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M3 4v16h18V4H3zm16 14H5V6h14v12zM7 8h2v8H7zm4 0h2v8h-2z"/>
+      </svg>
+      Paste Lead Data Row (Tab or Pipe Separated)
+    </label>
+    <textarea id="leadData" rows="2" class="w-full p-3 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-6"
+      placeholder="Business Name | Website | Email | Street | Phone | Category | Bot
+Sky Dental | https://www.skydentalnyc.com/ | contactus@skydentalnyc.com | 111 Broadway Suite 1304 | +1 212-600-1996 | Dentist | https://aibot247.xyz/a7j1e4"></textarea>
+
+    <!-- Generate Button -->
+    <button id="generateBtn" class="w-full bg-purple-600 text-white font-semibold py-3 rounded hover:bg-purple-700 mb-10 flex justify-center items-center gap-2">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+      Generate Email
+    </button>
+
+    <!-- Output Subject -->
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-xl font-semibold text-gray-800">Generated Subject:</h2>
+      <button id="copyGeneratedSubjectBtn" title="Copy Generated Subject" class="text-purple-600 hover:underline flex items-center gap-1">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zM20 5H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h12v14z"/>
+        </svg>
+        Copy
+      </button>
+    </div>
+    <div id="generatedSubject" class="p-4 border border-gray-300 rounded bg-gray-100 mb-8 whitespace-pre-wrap min-h-[40px]"></div>
+
+    <!-- Output Email -->
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-xl font-semibold text-gray-800">Generated Email:</h2>
+      <button id="copyGeneratedEmailBtn" title="Copy Generated Email" class="text-purple-600 hover:underline flex items-center gap-1">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M2 4v16h20V4H2zm18 2v1.5l-8 5-8-5V6h16zM4 18V8.5l7.25 4.53a.75.75 0 0 0 .5 0L20 8.5V18H4z"/>
+        </svg>
+        Copy
+      </button>
+    </div>
+    <div id="generatedEmail" class="p-4 border border-gray-300 rounded bg-gray-100 whitespace-pre-wrap min-h-[150px]"></div>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center text-gray-500 text-sm">
+      Developed for Business by <a target="_blank" href="https://alienzeus.github.io" class="text-purple-600 hover:underline">Zeus</a>
+    </footer>
+
+  </div>
+
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const subjectTemplate = document.getElementById('subjectTemplate');
+    const emailTemplate = document.getElementById('emailTemplate');
+    const leadData = document.getElementById('leadData');
+    const generatedSubject = document.getElementById('generatedSubject');
+    const generatedEmail = document.getElementById('generatedEmail');
+
+    const copySubjectBtn = document.getElementById('copySubjectBtn');
+    const copyGeneratedSubjectBtn = document.getElementById('copyGeneratedSubjectBtn');
+    const copyGeneratedEmailBtn = document.getElementById('copyGeneratedEmailBtn');
+
+    const columns = ["Business Name", "Website", "Email", "Street", "Phone", "Category", "Bot"];
+
+    function parseLeadRow(rowText) {
+      let values = rowText.includes('|') ? rowText.split('|') : rowText.split('\t');
+      values = values.map(v => v.trim());
+      const obj = {};
+      for(let i=0; i < columns.length; i++){
+        obj[columns[i]] = values[i] || "";
+      }
+      return obj;
+    }
+
+    function replaceTags(template, data) {
+      return template.replace(/\[(.+?)\]/g, (match, tag) => {
+        return data[tag] || match;
+      });
+    }
+
+    generateBtn.addEventListener('click', () => {
+      const lead = parseLeadRow(leadData.value);
+      const subject = replaceTags(subjectTemplate.value, lead);
+      const email = replaceTags(emailTemplate.value, lead);
+
+      generatedSubject.textContent = subject;
+      generatedEmail.textContent = email;
+    });
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard!");
+      }, () => {
+        alert("Failed to copy.");
+      });
+    }
+
+    copySubjectBtn.addEventListener('click', () => {
+      copyToClipboard(subjectTemplate.value);
+    });
+
+    copyGeneratedSubjectBtn.addEventListener('click', () => {
+      copyToClipboard(generatedSubject.textContent);
+    });
+
+    copyGeneratedEmailBtn.addEventListener('click', () => {
+      copyToClipboard(generatedEmail.textContent);
+    });
+  </script>
+
+</body>
+</html>
